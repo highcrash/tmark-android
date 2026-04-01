@@ -77,6 +77,8 @@ class NewRequestViewModel @Inject constructor(
 
     init { loadAll() }
 
+    fun retryBootstrap() { loadAll() }
+
     private fun loadAll() {
         viewModelScope.launch {
             val name  = tokenStore.clientName.firstOrNull() ?: ""
@@ -91,14 +93,24 @@ class NewRequestViewModel @Inject constructor(
                 selectedDates = if (cartDates.isNotEmpty()) cartDates else _ui.value.selectedDates
             )
             when (val r = repo.getBootstrap()) {
-                is ApiResult.Success -> _ui.value = _ui.value.copy(
-                    loadingCatalog = false,
-                    packages = r.data.packages,
-                    items = r.data.items,
-                    designations = r.data.designations,
-                    productionHouses = r.data.productionHouses
-                )
-                else -> _ui.value = _ui.value.copy(loadingCatalog = false)
+                is ApiResult.Success -> {
+                    android.util.Log.d("NewRequestVM", "Bootstrap OK: ${r.data.designations.size} designations, ${r.data.packages.size} packages")
+                    _ui.value = _ui.value.copy(
+                        loadingCatalog = false,
+                        packages = r.data.packages,
+                        items = r.data.items,
+                        designations = r.data.designations,
+                        productionHouses = r.data.productionHouses
+                    )
+                }
+                is ApiResult.Error -> {
+                    android.util.Log.e("NewRequestVM", "Bootstrap error: ${r.code} ${r.message}")
+                    _ui.value = _ui.value.copy(loadingCatalog = false, error = "Failed to load: ${r.message}")
+                }
+                is ApiResult.Exception -> {
+                    android.util.Log.e("NewRequestVM", "Bootstrap exception", r.throwable)
+                    _ui.value = _ui.value.copy(loadingCatalog = false, error = "Network error: ${r.throwable.message}")
+                }
             }
         }
     }

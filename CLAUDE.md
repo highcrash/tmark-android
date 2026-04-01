@@ -5,6 +5,13 @@ Android client for the **T-Mark** equipment rental platform. Users browse camera
 
 **Backend**: Next.js at `https://tmark.online/api/mobile/` (source: `D:\T-MarkGITHUB\tmark`)
 
+## Key Documentation
+- **`API_REFERENCE.md`** — Complete API docs (48 endpoints, request/response schemas, error codes)
+- **`design-reference/DESIGN_SYSTEM.md`** — Full design system (colors, typography, spacing, components)
+- **`design-reference/visual-reference.html`** — Interactive visual reference (open in browser)
+- **`design-reference/app-icon/`** — App icon source files + Play Store icon
+- **`design-reference/logo/`** — Logo on black/white backgrounds
+
 ## Architecture
 - **Pattern**: Single-Activity MVVM with Jetpack Compose
 - **DI**: Hilt (`@HiltAndroidApp`, `@AndroidEntryPoint`, `@HiltViewModel`)

@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>T-mark Design System — Visual Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Barlow+Condensed:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --red: #D42B1E; --red-light: #F03528; --red-dim: rgba(212,43,30,0.08);
+    --white: #FFFFFF; --off-white: #F5F4F2; --light-gray: #EFEFED;
+    --mid-gray: #E2E1DE; --border: #D8D6D2;
+    --text: #111110; --text-2: #2A2926; --text-muted: #888582;
+    --black: #0A0908; --black-2: #141310; --black-3: #1E1C1A;
+  }
+  body { background: var(--off-white); color: var(--text); font-family: 'Barlow', sans-serif; font-weight: 300; }
+
+  /* PAGE NAV */
+  .sidenav {
+    position: fixed; top: 0; left: 0; bottom: 0; width: 220px;
+    background: var(--black); padding: 32px 0; overflow-y: auto; z-index: 10;
+  }
+  .sidenav-brand {
+    font-family: 'Bebas Neue', sans-serif; font-size: 22px;
+    letter-spacing: .1em; color: var(--white); padding: 0 24px 24px;
+    border-bottom: 1px solid rgba(255,255,255,.06); margin-bottom: 20px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .sidenav-mark {
+    width: 28px; height: 28px; background: var(--red);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; color: var(--white);
+  }
+  .sidenav-link {
+    display: block; padding: 9px 24px;
+    font-family: 'Barlow Condensed', sans-serif; font-size: 12px;
+    letter-spacing: .15em; text-transform: uppercase;
+    color: rgba(255,255,255,.4); text-decoration: none; transition: color .2s;
+  }
+  .sidenav-link:hover { color: var(--white); }
+  .sidenav-link.active { color: var(--red); border-left: 2px solid var(--red); }
+  .sidenav-section {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 9px; letter-spacing: .3em;
+    text-transform: uppercase; color: rgba(255,255,255,.2); padding: 20px 24px 6px;
+  }
+
+  /* MAIN CONTENT */
+  .main { margin-left: 220px; padding: 64px 64px 120px; max-width: 1200px; }
+
+  /* SECTION WRAPPERS */
+  .ref-section { margin-bottom: 96px; }
+  .ref-title {
+    font-family: 'Bebas Neue', sans-serif; font-size: 42px; color: var(--black);
+    margin-bottom: 6px; line-height: 1;
+  }
+  .ref-subtitle {
+    font-size: 14px; color: var(--text-muted); margin-bottom: 40px;
+    font-style: italic; line-height: 1.6;
+  }
+  .ref-divider { width: 100%; height: 1px; background: var(--border); margin-bottom: 48px; }
+  .ref-label {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 10px;
+    letter-spacing: .35em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px;
+  }
+
+  /* PAGE HEADER */
+  .page-header {
+    background: var(--black); margin: -64px -64px 72px; padding: 72px 64px 60px;
+    position: relative; overflow: hidden;
+  }
+  .page-header-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 70% 50%, rgba(212,43,30,.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .page-header-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 11px;
+    letter-spacing: .4em; text-transform: uppercase; color: var(--red);
+    display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+  }
+  .page-header-eyebrow::before { content:''; width:28px; height:1px; background:var(--red); }
+  .page-header h1 {
+    font-family: 'Bebas Neue', sans-serif; font-size: clamp(48px, 7vw, 96px);
+    line-height: .9; color: var(--white); margin-bottom: 20px; position: relative; z-index: 1;
+  }
+  .page-header h1 span { color: var(--red); }
+  .page-header p { font-size: 15px; color: rgba(255,255,255,.5); max-width: 520px; line-height: 1.75; position: relative; z-index: 1; }
+
+  /* ── COLORS ── */
+  .color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+  .color-swatch {
+    border-radius: 2px; overflow: hidden; border: 1px solid var(--border);
+  }
+  .swatch-block { height: 80px; }
+  .swatch-info { background: var(--white); padding: 12px 14px; }
+  .swatch-name { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; letter-spacing: .1em; color: var(--text); font-weight: 500; }
+  .swatch-hex { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+  .swatch-token { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; color: var(--red); letter-spacing: .05em; margin-top: 4px; }
+
+  .color-group-title {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 11px;
+    letter-spacing: .3em; text-transform: uppercase; color: var(--red);
+    margin-bottom: 16px; margin-top: 32px; display: flex; align-items: center; gap: 10px;
+  }
+  .color-group-title::before { content:''; width:24px; height:1px; background:var(--red); }
+
+  /* ── TYPOGRAPHY ── */
+  .type-specimen { background: var(--white); border: 1px solid var(--border); padding: 36px; margin-bottom: 12px; position: relative; }
+  .type-meta {
+    position: absolute; top: 16px; right: 20px;
+    font-family: 'Barlow Condensed', sans-serif; font-size: 10px;
+    letter-spacing: .2em; color: var(--text-muted); text-align: right;
+  }
+  .type-role { color: var(--red); display: block; margin-bottom: 2px; }
+
+  .t-hero { font-family: 'Bebas Neue', sans-serif; font-size: clamp(64px,10vw,120px); line-height: .88; color: var(--black); letter-spacing: .01em; }
+  .t-section { font-family: 'Bebas Neue', sans-serif; font-size: 72px; line-height: 1; color: var(--black); }
+  .t-card { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--black); }
+  .t-label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: .4em; text-transform: uppercase; color: var(--red); display: flex; align-items: center; gap: 12px; }
+  .t-label::before { content:''; width:28px; height:1px; background:var(--red); }
+  .t-nav { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; letter-spacing: .2em; text-transform: uppercase; color: var(--text-muted); }
+  .t-body { font-family: 'Barlow', sans-serif; font-size: 16px; font-weight: 300; line-height: 1.8; color: var(--text-muted); max-width: 560px; }
+  .t-price { font-family: 'Bebas Neue', sans-serif; font-size: 42px; color: var(--black); }
+  .t-code { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: .35em; color: var(--red); text-transform: uppercase; }
+
+  /* ── BUTTONS ── */
+  .btn-row { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; margin-bottom: 24px; }
+
+  .btn-primary {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 13px; letter-spacing: .25em;
+    text-transform: uppercase; color: var(--white); background: var(--red);
+    padding: 17px 44px; text-decoration: none; display: inline-block; transition: background .3s; cursor: pointer; border: none;
+  }
+  .btn-primary:hover { background: var(--red-light); }
+  .btn-outline-white {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 13px; letter-spacing: .25em;
+    text-transform: uppercase; color: rgba(255,255,255,.6); border: 1px solid rgba(255,255,255,.2);
+    padding: 16px 36px; text-decoration: none; display: inline-block; transition: all .3s; cursor: pointer; background: none;
+  }
+  .btn-outline-white:hover { border-color:var(--white); color:var(--white); }
+  .btn-outline-red {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 12px; letter-spacing: .25em;
+    text-transform: uppercase; color: var(--red); border: 1px solid rgba(212,43,30,.4);
+    padding: 14px 32px; text-decoration: none; display: inline-block; transition: all .25s; cursor: pointer; background: none;
+  }
+  .btn-outline-red:hover { background:var(--red); color:var(--white); border-color:var(--red); }
+  .btn-white {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 13px; letter-spacing: .25em;
+    text-transform: uppercase; color: var(--red); background: var(--white);
+    padding: 18px 44px; text-decoration: none; display: inline-block; transition: all .25s; cursor: pointer; border: none;
+  }
+  .btn-white:hover { background: var(--off-white); }
+
+  .dark-btn-context { background: var(--black); padding: 32px 28px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+  .red-btn-context { background: var(--red); padding: 32px 28px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+
+  /* ── CARDS ── */
+  .cards-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+
+  .demo-card {
+    background: var(--white); border: 1px solid var(--border); overflow: hidden;
+    position: relative; transition: box-shadow .35s, transform .35s; cursor: pointer;
+  }
+  .demo-card:hover { box-shadow: 0 20px 60px rgba(0,0,0,.1); transform: translateY(-4px); }
+  .demo-card::after {
+    content:''; position:absolute; top:0; left:0; right:0; height:3px;
+    background:var(--red); transform:scaleX(0); transform-origin:left;
+    transition:transform .35s cubic-bezier(.16,1,.3,1);
+  }
+  .demo-card:hover::after { transform:scaleX(1); }
+  .card-visual { height: 160px; display:flex; align-items:center; justify-content:center; }
+  .card-visual.v1 { background: linear-gradient(160deg,#F0EDE8,#E8E4DC); }
+  .card-visual.v2 { background: linear-gradient(160deg,#1A1814,#0E0C09); }
+  .card-visual.v3 { background: linear-gradient(160deg,#ECEAE5,#E0DDD6); }
+  .card-body { padding: 20px; }
+  .card-code { font-family:'Barlow Condensed',sans-serif; font-size:10px; letter-spacing:.35em; color:var(--red); text-transform:uppercase; margin-bottom:4px; }
+  .card-title { font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--black); margin-bottom:10px; }
+  .card-specs { display:flex; flex-wrap:wrap; gap:4px; margin-bottom:14px; }
+  .spec { font-family:'Barlow Condensed',sans-serif; font-size:10px; letter-spacing:.1em; color:var(--text-muted); background:var(--light-gray); padding:3px 8px; border:1px solid var(--border); }
+  .card-footer { display:flex; align-items:center; justify-content:space-between; padding-top:14px; border-top:1px solid var(--border); }
+  .card-price { font-family:'Bebas Neue',sans-serif; font-size:28px; color:var(--black); }
+
+  .demo-item-row {
+    display:grid; grid-template-columns:80px 1fr auto; gap:16px;
+    align-items:center; background:var(--black-2); padding:18px 20px;
+    position:relative; transition:background .25s; cursor:pointer;
+    border-left:2px solid transparent; margin-bottom:1px;
+  }
+  .demo-item-row:hover { background:var(--black-3); border-left-color:var(--red); }
+  .di-code { font-family:'Barlow Condensed',sans-serif; font-size:11px; letter-spacing:.25em; color:var(--red); }
+  .di-name { font-size:14px; color:rgba(255,255,255,.8); }
+  .di-price { font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--white); }
+
+  /* ── SECTION BACKGROUNDS ── */
+  .bg-demo { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
+  .bg-tile { height:100px; display:flex; flex-direction:column; align-items:flex-start; justify-content:flex-end; padding:16px; position:relative; }
+  .bg-name { font-family:'Barlow Condensed',sans-serif; font-size:11px; letter-spacing:.2em; text-transform:uppercase; }
+  .bg-hex { font-size:11px; margin-top:2px; }
+  .bg-pct { font-family:'Bebas Neue',sans-serif; font-size:32px; position:absolute; top:12px; right:16px; }
+
+  /* ── SPACING ── */
+  .spacing-demo { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+  .sp-box { background:var(--white); border:1px solid var(--border); padding:12px; }
+  .sp-bar { background: var(--red); margin-bottom:8px; }
+  .sp-val { font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--black); }
+  .sp-label { font-family:'Barlow Condensed',sans-serif; font-size:10px; letter-spacing:.2em; color:var(--text-muted); margin-top:2px; }
+
+  /* ── SECTION PATTERN DIAGRAM ── */
+  .pattern-list { display:flex; flex-direction:column; gap:2px; }
+  .pattern-row {
+    display:grid; grid-template-columns:120px 1fr 80px; gap:16px; align-items:center;
+    padding:14px 20px;
+  }
+  .pr-bg { font-family:'Barlow Condensed',sans-serif; font-size:11px; letter-spacing:.15em; text-transform:uppercase; }
+  .pr-name { font-size:14px; }
+  .pr-pct { font-family:'Bebas Neue',sans-serif; font-size:18px; text-align:right; }
+
+  /* ── NAV DEMO ── */
+  .nav-demo {
+    background: rgba(255,255,255,.96); border-bottom:1px solid var(--border);
+    backdrop-filter:blur(12px); display:flex; align-items:center;
+    justify-content:space-between; padding:0 32px; height:64px;
+  }
+  .nd-logo { font-family:'Bebas Neue',sans-serif; font-size:26px; color:var(--black); display:flex; align-items:center; gap:8px; }
+  .nd-mark { width:28px;height:28px;background:var(--red);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;color:var(--white); }
+  .nd-links { display:flex; gap:28px; }
+  .nd-link { font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-muted);text-decoration:none; }
+  .nd-link.active { color:var(--red); }
+  .nd-cta { background:var(--red);color:var(--white);font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;padding:9px 22px;text-decoration:none; }
+
+  /* ── MOTION ── */
+  .motion-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .motion-card {
+    background:var(--white); border:1px solid var(--border); padding:28px;
+    font-family:'Barlow Condensed',sans-serif; font-size:12px; letter-spacing:.15em;
+    text-transform:uppercase; color:var(--text-muted);
+  }
+  .motion-card strong { display:block; color:var(--black); font-size:14px; margin-bottom:8px; }
+  .motion-demo { height:48px; display:flex; align-items:center; margin-top:16px; }
+  .motion-bar { height:2px; background:var(--red); width:0%; transition:width .8s cubic-bezier(.16,1,.3,1); }
+  .motion-card:hover .motion-bar { width:100%; }
+
+  /* ── CURSOR DEMO ── */
+  .cursor-demo {
+    background:var(--black); height:180px; display:flex; align-items:center; justify-content:center;
+    gap:32px; position:relative; border:1px solid rgba(255,255,255,.05);
+  }
+  .cursor-dot { width:8px;height:8px;background:var(--red);border-radius:50%; }
+  .cursor-ring-demo { width:36px;height:36px;border:1.5px solid rgba(212,43,30,.4);border-radius:50%; }
+  .cursor-expanded { display:flex;flex-direction:column;align-items:center;gap:16px; }
+  .cursor-dot.big { width:12px;height:12px; }
+  .cursor-ring-demo.big { width:48px;height:48px;border-color:rgba(212,43,30,.7); }
+  .cursor-label { font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.3); }
+
+  /* ── CTA DEMO ── */
+  .cta-demo {
+    background:var(--red); padding:48px 40px; display:flex;
+    align-items:center; justify-content:space-between;
+  }
+  .cta-demo-text { font-family:'Bebas Neue',sans-serif; font-size:clamp(28px,4vw,48px); color:var(--white); line-height:1; }
+
+  /* ── HERO DEMO ── */
+  .hero-demo {
+    background: linear-gradient(160deg,#111008 0%,#0D0C0A 50%,#080706 100%);
+    padding: 64px 40px 48px; position:relative; overflow:hidden;
+    border:1px solid rgba(255,255,255,.04);
+  }
+  .hero-demo-grid {
+    position:absolute; inset:0;
+    background-image: linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px), linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+    background-size:72px 72px;
+    mask-image:radial-gradient(ellipse 80% 80% at 50% 40%,black 0%,transparent 80%);
+  }
+  .hero-demo-eyebrow {
+    font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.4em;
+    text-transform:uppercase;color:var(--red);display:flex;align-items:center;gap:12px;margin-bottom:16px;position:relative;z-index:1;
+  }
+  .hero-demo-eyebrow::before { content:'';width:24px;height:1px;background:var(--red); }
+  .hero-demo h2 { font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,9vw,96px);line-height:.88;color:var(--white);position:relative;z-index:1;margin-bottom:16px; }
+  .hero-demo h2 span { color:var(--red); }
+  .hero-demo p { font-size:14px;color:rgba(255,255,255,.5);max-width:360px;line-height:1.7;margin-bottom:24px;position:relative;z-index:1; }
+</style>
+</head>
+<body>
+
+<nav class="sidenav">
+  <div class="sidenav-brand"><div class="sidenav-mark">TM</div>T-MARK</div>
+  <div class="sidenav-section">Foundation</div>
+  <a href="#colors" class="sidenav-link">Colors</a>
+  <a href="#typography" class="sidenav-link">Typography</a>
+  <a href="#spacing" class="sidenav-link">Spacing</a>
+  <div class="sidenav-section">Components</div>
+  <a href="#nav" class="sidenav-link">Navigation</a>
+  <a href="#buttons" class="sidenav-link">Buttons</a>
+  <a href="#cards" class="sidenav-link">Cards</a>
+  <a href="#lists" class="sidenav-link">List Rows</a>
+  <div class="sidenav-section">Sections</div>
+  <a href="#backgrounds" class="sidenav-link">Backgrounds</a>
+  <a href="#hero" class="sidenav-link">Hero Pattern</a>
+  <a href="#cta" class="sidenav-link">CTA Band</a>
+  <a href="#rhythm" class="sidenav-link">Page Rhythm</a>
+  <div class="sidenav-section">Motion</div>
+  <a href="#motion" class="sidenav-link">Animations</a>
+  <a href="#cursor" class="sidenav-link">Cursor</a>
+</nav>
+
+<div class="main">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="page-header-bg"></div>
+    <div class="page-header-eyebrow">Design System · Visual Reference</div>
+    <h1>T-MARK<br><span>DESIGN</span><br>SYSTEM</h1>
+    <p>A complete visual reference for the T-mark Cinema Equipment Rental design language. Every color, typeface, component, and animation pattern is documented here. Reference this file before building any UI.</p>
+  </div>
+
+  <!-- COLORS -->
+  <div class="ref-section" id="colors">
+    <div class="ref-title">Color System</div>
+    <div class="ref-subtitle">70% white/light · 30% black/dark · 10% red accent. Always maintain this ratio.</div>
+
+    <div class="color-group-title">Accent — 10% of visual surface</div>
+    <div class="color-grid">
+      <div class="color-swatch"><div class="swatch-block" style="background:#D42B1E"></div><div class="swatch-info"><div class="swatch-name">Red</div><div class="swatch-hex">#D42B1E</div><div class="swatch-token">--red</div></div></div>
+      <div class="color-swatch"><div class="swatch-block" style="background:#F03528"></div><div class="swatch-info"><div class="swatch-name">Red Light</div><div class="swatch-hex">#F03528</div><div class="swatch-token">--red-light</div></div></div>
+      <div class="color-swatch"><div class="swatch-block" style="background:rgba(212,43,30,0.08);border:1px solid #D8D6D2"></div><div class="swatch-info"><div class="swatch-name">Red Dim</div><div class="swatch-hex">rgba(212,43,30,.08)</div><div class="swatch-token">--red-dim</div></div></div>
+    </div>
+
+    <div class="color-group-title">Light — 70% of visual surface</div>
+    <div class="color-grid">
+      <div class="color-swatch"><div class="swatch-block" style="background:#FFFFFF;border-bottom:1px solid #D8D6D2"></div><div class="swatch-info"><div class="swatch-name">White</div><div class="swatch-hex">#FFFFFF</div><div class="swatch-token">--white</div></div></div>
+      <div class="color-swatch"><div class="swatch-block" style="background:#F5F4F2"></div><div class="swatch-info"><div class="swatch-name">Off White</div><div class="swatch-hex">#F5F4F2</div><div class="swatch-token">--off-white</div></div></div>
+      <div class="color-swatch"><div class="swatch-block" style="background:#EFEFED"></div><div class="swatch-info"><div class="swatch-name">Light Gray</div><div class="swatch-hex">#EFEFED</div><div class="swatch-token">--light-gray</div></div></div>
+      <div class="color-swatch"><div class="swatch-block" style="background:#E2E1DE"></div><div class="swatch-info"><div class="swatch-name">Mid Gray</div><div class="swatch-hex">#E2E1DE</div><div class="swatch-token">--mid-gray</div></div></div>
+      <div class="color-swatch"><div class="swatch-block" style="background:#D8D6D2"></div><div class="swatch-info"><div class="swatch-name">Border</div><div class="swatch-hex">#D8D6D2</div><div class="swatch-token">--border</div></div></div>
+    </div>
+
+    <div class="color-group-title">Text</div>
+    <div class="color-grid">
+      <div class="color-swatch"><div class="swatch-block" style="background:#111110"></div><div class="swatch-info"><div class="swatch-name">Text</div><div class="swatch-hex">#111110</div><div class="swatch-token">--text</div></div></div>
+      <div class="color-swatch"><div class="swatch-block" style="background:#2A2926"></div><div class="swatch-info"><div class="swatch-name">Text 2</div><div class="swatch-hex">#2A2926</div><div class="swatch-token">--text-2</div></div></div>
+      <div class="color-swatch"><div class="swatch-block" style="background:#888582"></div><div class="swatch-info"><div class="swatch-name">Text Muted</div><div class="swatch-hex">#888582</div><div class="swatch-token">--text-muted</div></div></div>
+    </div>
+
+    <div class="color-group-title">Dark — 30% of visual surface</div>
+    <div class="color-grid">
+      <div class="color-swatch"><div class="swatch-block" style="background:#0A0908"></div><div class="swatch-info"><div class="swatch-name">Black</div><div class="swatch-hex">#0A0908</div><div class="swatch-token">--black</div></div></div>
+      <div class="color-swatch"><div class="swatch-block" style="background:#141310"></div><div class="swatch-info"><div class="swatch-name">Black 2</div><div class="swatch-hex">#141310</div><div class="swatch-token">--black-2</div></div></div>
+      <div class="color-swatch"><div class="swatch-block" style="background:#1E1C1A"></div><div class="swatch-info"><div class="swatch-name">Black 3</div><div class="swatch-hex">#1E1C1A</div><div class="swatch-token">--black-3</div></div></div>
+    </div>
+  </div>
+
+  <div class="ref-divider"></div>
+
+  <!-- TYPOGRAPHY -->
+  <div class="ref-section" id="typography">
+    <div class="ref-title">Typography</div>
+    <div class="ref-subtitle">Three fonts. Each with a distinct role. Never substitute.</div>
+
+    <div class="type-specimen">
+      <div class="type-meta"><span class="type-role">Hero Title</span>Bebas Neue · clamp(80px,14vw,190px) · lh 0.88</div>
+      <div class="t-hero">FRAME YOUR<br><span style="color:var(--red)">VISION.</span></div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-meta"><span class="type-role">Section Title</span>Bebas Neue · clamp(52px,7vw,100px) · lh 1</div>
+      <div class="t-section">Cinema Cameras</div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-meta"><span class="type-role">Card Heading</span>Bebas Neue · 26–32px</div>
+      <div class="t-card">ARRI ALEXA Mini Package</div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-meta"><span class="type-role">Section Label</span>Barlow Condensed · 11px · ls 0.4em · UPPERCASE · RED</div>
+      <div class="t-label">Camera & Accessory Packages</div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-meta"><span class="type-role">Nav Links</span>Barlow Condensed · 13px · ls 0.2em · UPPERCASE</div>
+      <div class="t-nav" style="display:flex;gap:32px"><span>Packages</span><span>Lenses</span><span style="color:var(--red)">Availability</span><span>About</span></div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-meta"><span class="type-role">Body Text</span>Barlow · 16px · weight 300 · lh 1.8</div>
+      <div class="t-body">T-mark is Dhaka's foremost professional cinema equipment rental platform, trusted by directors, DPs, and production houses across Bangladesh. Premium gear on a transparent day-rate model with real-time availability.</div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-meta"><span class="type-role">Price</span>Bebas Neue · 36–42px</div>
+      <div class="t-price">৳20,000 <span style="font-family:'Barlow';font-size:14px;font-weight:300;color:var(--text-muted)">/ day</span></div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-meta"><span class="type-role">Item Code</span>Barlow Condensed · 10–11px · ls 0.35em · RED</div>
+      <div class="t-code">PKG-002 &nbsp;&nbsp; LSP-006 &nbsp;&nbsp; ITM-003</div>
+    </div>
+  </div>
+
+  <div class="ref-divider"></div>
+
+  <!-- SPACING -->
+  <div class="ref-section" id="spacing">
+    <div class="ref-title">Spacing System</div>
+    <div class="ref-subtitle">Section padding, gaps, and layout spacing reference.</div>
+    <div class="spacing-demo">
+      <div class="sp-box"><div class="sp-bar" style="height:100px"></div><div class="sp-val">100px</div><div class="sp-label">Standard section padding (v)</div></div>
+      <div class="sp-box"><div class="sp-bar" style="height:56px"></div><div class="sp-val">56px</div><div class="sp-label">Standard section padding (h)</div></div>
+      <div class="sp-box"><div class="sp-bar" style="height:80px"></div><div class="sp-val">80px</div><div class="sp-label">Grid gap — 2-col layout</div></div>
+      <div class="sp-box"><div class="sp-bar" style="height:16px"></div><div class="sp-val">16px</div><div class="sp-label">Card grid gap</div></div>
+      <div class="sp-box"><div class="sp-bar" style="height:72px"></div><div class="sp-val">72px</div><div class="sp-label">Nav height</div></div>
+      <div class="sp-box"><div class="sp-bar" style="height:24px"></div><div class="sp-val">24px</div><div class="sp-label">Hero eyebrow → title gap</div></div>
+      <div class="sp-box"><div class="sp-bar" style="height:44px"></div><div class="sp-val">44px</div><div class="sp-label">Hero subtitle → CTA gap</div></div>
+      <div class="sp-box"><div class="sp-bar" style="height:56px"></div><div class="sp-val">56px</div><div class="sp-label">Section header → content gap</div></div>
+    </div>
+  </div>
+
+  <div class="ref-divider"></div>
+
+  <!-- NAVIGATION -->
+  <div class="ref-section" id="nav">
+    <div class="ref-title">Navigation</div>
+    <div class="ref-subtitle">Fixed top bar. White frosted background. Red CTA right-aligned.</div>
+    <div class="nav-demo">
+      <div class="nd-logo"><div class="nd-mark">TM</div>T-MARK</div>
+      <div class="nd-links">
+        <a href="#" class="nd-link">Packages</a>
+        <a href="#" class="nd-link">Lenses</a>
+        <a href="#" class="nd-link active">Availability</a>
+        <a href="#" class="nd-link">About</a>
+      </div>
+      <a href="#" class="nd-cta">Book Now</a>
+    </div>
+  </div>
+
+  <div class="ref-divider"></div>
+
+  <!-- BUTTONS -->
+  <div class="ref-section" id="buttons">
+    <div class="ref-title">Buttons</div>
+    <div class="ref-subtitle">Four variants. Context-dependent. All use Barlow Condensed, letter-spacing 0.25em, ALL CAPS.</div>
+
+    <div class="ref-label">On White / Light Background</div>
+    <div class="btn-row" style="margin-bottom:32px">
+      <button class="btn-primary">Check Availability & Book</button>
+      <button class="btn-outline-red">Check Availability</button>
+    </div>
+
+    <div class="ref-label">On Dark / Black Background</div>
+    <div class="dark-btn-context" style="margin-bottom:32px">
+      <button class="btn-primary">Submit Rental Request</button>
+      <button class="btn-outline-white">Explore Equipment</button>
+    </div>
+
+    <div class="ref-label">On Red CTA Band</div>
+    <div class="red-btn-context">
+      <button class="btn-white">Book Equipment Now</button>
+    </div>
+  </div>
+
+  <div class="ref-divider"></div>
+
+  <!-- CARDS -->
+  <div class="ref-section" id="cards">
+    <div class="ref-title">Cards — Light Context</div>
+    <div class="ref-subtitle">White background, border, red top sweep on hover, lift + shadow. Used on off-white section backgrounds.</div>
+    <div class="cards-row">
+      <div class="demo-card">
+        <div class="card-visual v1"></div>
+        <div class="card-body">
+          <div class="card-code">PKG-001</div>
+          <div class="card-title">Sony FX3 Package</div>
+          <div class="card-specs"><span class="spec">Full Frame</span><span class="spec">4K 120fps</span><span class="spec">S-Cinetone</span></div>
+          <div class="card-footer"><div class="card-price">৳4,000 <span style="font-size:12px;font-weight:300;font-family:'Barlow';color:var(--text-muted)">/day</span></div><a class="btn-outline-red" style="font-size:10px;padding:7px 14px">Book</a></div>
+        </div>
+      </div>
+      <div class="demo-card">
+        <div class="card-visual v2"></div>
+        <div class="card-body">
+          <div class="card-code">PKG-002</div>
+          <div class="card-title">ARRI ALEXA Mini Package</div>
+          <div class="card-specs"><span class="spec">ARRI Log C</span><span class="spec">4K UHD</span><span class="spec">PL Mount</span></div>
+          <div class="card-footer"><div class="card-price">৳20,000 <span style="font-size:12px;font-weight:300;font-family:'Barlow';color:var(--text-muted)">/day</span></div><a class="btn-outline-red" style="font-size:10px;padding:7px 14px">Book</a></div>
+        </div>
+      </div>
+      <div class="demo-card">
+        <div class="card-visual v3"></div>
+        <div class="card-body">
+          <div class="card-code">PKG-003</div>
+          <div class="card-title">Sony PXW-FX9 Package</div>
+          <div class="card-specs"><span class="spec">6K Full Frame</span><span class="spec">4K 60fps</span><span class="spec">AF System</span></div>
+          <div class="card-footer"><div class="card-price">৳8,000 <span style="font-size:12px;font-weight:300;font-family:'Barlow';color:var(--text-muted)">/day</span></div><a class="btn-outline-red" style="font-size:10px;padding:7px 14px">Book</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ref-divider"></div>
+
+  <!-- LIST ROWS -->
+  <div class="ref-section" id="lists">
+    <div class="ref-title">List Rows — Dark Context</div>
+    <div class="ref-subtitle">Used on black/dark sections. Left red border animates in on hover.</div>
+    <div class="demo-item-row"><div class="di-code">ITM-001</div><div class="di-name">DJI RS3 / Ronin Gimbal</div><div class="di-price">৳1,500</div></div>
+    <div class="demo-item-row"><div class="di-code">ITM-002</div><div class="di-name">Audio Zoom Recorder + Sennheiser EW 112P G4 (4 pairs)</div><div class="di-price">৳3,000</div></div>
+    <div class="demo-item-row"><div class="di-code">ITM-003</div><div class="di-name">Lilliput BM150 4K 15" Director's Monitor</div><div class="di-price">৳2,000</div></div>
+    <div class="demo-item-row"><div class="di-code">ITM-004</div><div class="di-name">Sennheiser EW 112P G4 Wireless Lavalier (per pair)</div><div class="di-price">৳500</div></div>
+  </div>
+
+  <div class="ref-divider"></div>
+
+  <!-- SECTION BACKGROUNDS -->
+  <div class="ref-section" id="backgrounds">
+    <div class="ref-title">Section Backgrounds</div>
+    <div class="ref-subtitle">Six surface types used across the page. Alternate to create rhythm.</div>
+    <div class="bg-demo">
+      <div class="bg-tile" style="background:#FFFFFF;border:1px solid #D8D6D2"><span class="bg-pct" style="color:#D8D6D2">70%</span><span class="bg-name" style="color:#888582">--white</span><span class="bg-hex" style="color:#888582">#FFFFFF</span></div>
+      <div class="bg-tile" style="background:#F5F4F2"><span class="bg-pct" style="color:#D8D6D2">70%</span><span class="bg-name" style="color:#888582">--off-white</span><span class="bg-hex" style="color:#888582">#F5F4F2</span></div>
+      <div class="bg-tile" style="background:#0A0908"><span class="bg-pct" style="color:#2A2926">30%</span><span class="bg-name" style="color:rgba(255,255,255,.4)">--black</span><span class="bg-hex" style="color:rgba(255,255,255,.3)">#0A0908</span></div>
+      <div class="bg-tile" style="background:#141310"><span class="bg-pct" style="color:#1E1C1A">30%</span><span class="bg-name" style="color:rgba(255,255,255,.4)">--black-2</span><span class="bg-hex" style="color:rgba(255,255,255,.3)">#141310</span></div>
+      <div class="bg-tile" style="background:#D42B1E"><span class="bg-pct" style="color:rgba(255,255,255,.3)">10%</span><span class="bg-name" style="color:rgba(255,255,255,.8)">--red (CTA band)</span><span class="bg-hex" style="color:rgba(255,255,255,.6)">#D42B1E</span></div>
+      <div class="bg-tile" style="background:#EFEFED"><span class="bg-pct" style="color:#D8D6D2">70%</span><span class="bg-name" style="color:#888582">--light-gray</span><span class="bg-hex" style="color:#888582">#EFEFED</span></div>
+    </div>
+  </div>
+
+  <div class="ref-divider"></div>
+
+  <!-- HERO PATTERN -->
+  <div class="ref-section" id="hero">
+    <div class="ref-title">Hero Pattern</div>
+    <div class="ref-subtitle">Always dark. Always full-viewport. Red accent on the last title word. Grid overlay + radial glow.</div>
+    <div class="hero-demo">
+      <div class="hero-demo-grid"></div>
+      <div class="hero-demo-eyebrow">Professional Cinema Equipment — Dhaka, Bangladesh</div>
+      <h2>FRAME<br>YOUR<br><span>VISION.</span></h2>
+      <p>Premium cinema cameras and lenses — built for filmmakers who demand the very best.</p>
+      <div style="display:flex;gap:16px;position:relative;z-index:1">
+        <button class="btn-primary">Check Availability</button>
+        <button class="btn-outline-white">Explore Equipment</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="ref-divider"></div>
+
+  <!-- CTA BAND -->
+  <div class="ref-section" id="cta">
+    <div class="ref-title">CTA Band</div>
+    <div class="ref-subtitle">Full-width red section. White headline + white-fill button. Separates testimonials from footer.</div>
+    <div class="cta-demo">
+      <div class="cta-demo-text">Ready to bring your next production to life?</div>
+      <button class="btn-white">Book Equipment Now</button>
+    </div>
+  </div>
+
+  <div class="ref-divider"></div>
+
+  <!-- PAGE RHYTHM -->
+  <div class="ref-section" id="rhythm">
+    <div class="ref-title">Page Section Rhythm</div>
+    <div class="ref-subtitle">Always follow this alternating dark/light pattern for visual cadence.</div>
+    <div class="pattern-list">
+      <div class="pattern-row" style="background:#0A0908"><span class="pr-bg" style="color:rgba(255,255,255,.4)">DARK</span><span class="pr-name" style="color:rgba(255,255,255,.7)">Hero — Full viewport, dark, cinematic</span><span class="pr-pct" style="color:rgba(255,255,255,.2)">30%</span></div>
+      <div class="pattern-row" style="background:#FFFFFF;border:1px solid #E2E1DE"><span class="pr-bg" style="color:#888582">WHITE</span><span class="pr-name" style="color:#2A2926">Intro Strip — 2-column positioning statement</span><span class="pr-pct" style="color:#D8D6D2">70%</span></div>
+      <div class="pattern-row" style="background:#F5F4F2"><span class="pr-bg" style="color:#888582">OFF-WHITE</span><span class="pr-name" style="color:#2A2926">Camera Packages — Primary products</span><span class="pr-pct" style="color:#D8D6D2">70%</span></div>
+      <div class="pattern-row" style="background:#FFFFFF;border:1px solid #E2E1DE"><span class="pr-bg" style="color:#888582">WHITE</span><span class="pr-name" style="color:#2A2926">Lens Packages — Secondary products</span><span class="pr-pct" style="color:#D8D6D2">70%</span></div>
+      <div class="pattern-row" style="background:#0A0908"><span class="pr-bg" style="color:rgba(255,255,255,.4)">DARK</span><span class="pr-name" style="color:rgba(255,255,255,.7)">Standalone Items — Dark contrast feature</span><span class="pr-pct" style="color:rgba(255,255,255,.2)">30%</span></div>
+      <div class="pattern-row" style="background:#F5F4F2"><span class="pr-bg" style="color:#888582">OFF-WHITE</span><span class="pr-name" style="color:#2A2926">Availability Calendar — Functional section</span><span class="pr-pct" style="color:#D8D6D2">70%</span></div>
+      <div class="pattern-row" style="background:#FFFFFF;border:1px solid #E2E1DE"><span class="pr-bg" style="color:#888582">WHITE</span><span class="pr-name" style="color:#2A2926">Testimonials — Social proof</span><span class="pr-pct" style="color:#D8D6D2">70%</span></div>
+      <div class="pattern-row" style="background:#D42B1E"><span class="pr-bg" style="color:rgba(255,255,255,.7)">RED</span><span class="pr-name" style="color:rgba(255,255,255,.9)">CTA Band — Final call to action</span><span class="pr-pct" style="color:rgba(255,255,255,.4)">10%</span></div>
+      <div class="pattern-row" style="background:#0A0908"><span class="pr-bg" style="color:rgba(255,255,255,.4)">DARK</span><span class="pr-name" style="color:rgba(255,255,255,.7)">Footer — Links, brand, legal</span><span class="pr-pct" style="color:rgba(255,255,255,.2)">30%</span></div>
+    </div>
+  </div>
+
+  <div class="ref-divider"></div>
+
+  <!-- MOTION -->
+  <div class="ref-section" id="motion">
+    <div class="ref-title">Animation Patterns</div>
+    <div class="ref-subtitle">Hover over each card to see the animation. All use cubic-bezier(0.16,1,0.3,1).</div>
+    <div class="motion-grid">
+      <div class="motion-card"><strong>Scroll Reveal</strong>opacity 0→1 + translateY(28px→0) · 0.8s · IntersectionObserver threshold 0.08<div class="motion-demo"><div class="motion-bar"></div></div></div>
+      <div class="motion-card"><strong>Hero Fade Up</strong>opacity 0→1 + translateY(36px→0) · 0.9s · staggered delays 0.1s, 0.25s, 0.4s, 0.55s<div class="motion-demo"><div class="motion-bar"></div></div></div>
+      <div class="motion-card"><strong>Card Border Sweep</strong>scaleX(0→1) on ::after · 0.35s · transform-origin: left · Red top border<div class="motion-demo"><div class="motion-bar"></div></div></div>
+      <div class="motion-card"><strong>Card Lift</strong>transform: translateY(-4px) + box-shadow: 0 20px 60px rgba(0,0,0,.1) · 0.35s<div class="motion-demo"><div class="motion-bar"></div></div></div>
+      <div class="motion-card"><strong>Left Border Grow</strong>scaleY(0→1) on dark list rows · border-left-color: transparent → red · 0.25s<div class="motion-demo"><div class="motion-bar"></div></div></div>
+      <div class="motion-card"><strong>Scroll Line</strong>Animated red line in hero bottom-left · left: -100% → 100% · 2s infinite loop<div class="motion-demo"><div class="motion-bar"></div></div></div>
+    </div>
+  </div>
+
+  <div class="ref-divider"></div>
+
+  <!-- CURSOR -->
+  <div class="ref-section" id="cursor">
+    <div class="ref-title">Custom Cursor</div>
+    <div class="ref-subtitle">Always include the custom cursor. Small red dot + lagging ring. Expands on interactive elements.</div>
+    <div class="cursor-demo">
+      <div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:12px">
+          <div style="position:relative;width:36px;height:36px;display:flex;align-items:center;justify-content:center">
+            <div class="cursor-ring-demo"></div>
+            <div class="cursor-dot" style="position:absolute"></div>
+          </div>
+          <div class="cursor-label">Default State</div>
+        </div>
+      </div>
+      <div style="color:rgba(255,255,255,.2);font-size:24px">→</div>
+      <div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:12px">
+          <div style="position:relative;width:48px;height:48px;display:flex;align-items:center;justify-content:center">
+            <div class="cursor-ring-demo big"></div>
+            <div class="cursor-dot big" style="position:absolute"></div>
+          </div>
+          <div class="cursor-label">On Hover</div>
+        </div>
+      </div>
+      <div style="margin-left:32px;max-width:280px">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);line-height:1.8">
+          Dot: 8px → 12px<br>
+          Ring: 36px → 48px<br>
+          Ring color: 40% → 70% opacity<br>
+          Lag factor: 0.12 (smooth follow)<br>
+          Transition: width/height 0.3s
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

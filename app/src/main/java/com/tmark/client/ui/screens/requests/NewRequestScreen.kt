@@ -394,12 +394,16 @@ private fun ContactCard(
 
             // Detail fields — only shown after lookup attempt
             if (showDetailFields) {
-                // Full name
+                // Full name (required, read-only when auto-filled)
                 Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                    Text("FULL NAME", fontFamily = BarlowCondensed, fontSize = 9.sp, letterSpacing = 0.2.em, color = TMarkMuted)
+                    Row {
+                        Text("FULL NAME", fontFamily = BarlowCondensed, fontSize = 9.sp, letterSpacing = 0.2.em, color = TMarkMuted)
+                        Text(" *", fontFamily = BarlowCondensed, fontSize = 9.sp, color = TMarkRed)
+                    }
                     OutlinedTextField(
                         value = contact.name,
-                        onValueChange = onNameChange,
+                        onValueChange = if (contact.lookedUp) ({}) else onNameChange,
+                        readOnly = contact.lookedUp,
                         singleLine = true,
                         placeholder = { Text("Full name", fontFamily = Barlow, fontSize = 13.sp, color = TMarkMuted) },
                         colors = contactFieldColors(),
@@ -433,35 +437,44 @@ private fun ContactCard(
                         }
                         else -> {
                             Box {
-                            OutlinedTextField(
-                                value = contact.designationName,
-                                onValueChange = {},
-                                readOnly = true,
-                                singleLine = true,
-                                placeholder = { Text("Select role…", fontFamily = Barlow, fontSize = 13.sp, color = TMarkMuted) },
-                                colors = contactFieldColors(),
-                                textStyle = androidx.compose.ui.text.TextStyle(fontFamily = Barlow, fontSize = 14.sp),
-                                shape = RoundedCornerShape(0.dp),
-                                modifier = Modifier.fillMaxWidth().clickable { showDesigDropdown = true }
-                            )
-                            DropdownMenu(expanded = showDesigDropdown, onDismissRequest = { showDesigDropdown = false }) {
-                                designations.forEach { d ->
-                                    DropdownMenuItem(
-                                        text = { Text(d.name, fontFamily = Barlow, fontSize = 14.sp) },
-                                        onClick = { onDesignationChange(d.id, d.name); showDesigDropdown = false }
-                                    )
+                                OutlinedTextField(
+                                    value = contact.designationName,
+                                    onValueChange = {},
+                                    readOnly = true,
+                                    enabled = false,
+                                    singleLine = true,
+                                    placeholder = { Text("Select role…", fontFamily = Barlow, fontSize = 13.sp, color = TMarkMuted) },
+                                    colors = contactFieldColors(),
+                                    textStyle = androidx.compose.ui.text.TextStyle(fontFamily = Barlow, fontSize = 14.sp, color = TMarkBlack),
+                                    shape = RoundedCornerShape(0.dp),
+                                    modifier = Modifier.fillMaxWidth()
+                                )
+                                // Transparent overlay to capture clicks (TextField consumes touch events)
+                                Box(
+                                    modifier = Modifier
+                                        .matchParentSize()
+                                        .clickable { showDesigDropdown = true }
+                                )
+                                DropdownMenu(expanded = showDesigDropdown, onDismissRequest = { showDesigDropdown = false }) {
+                                    designations.forEach { d ->
+                                        DropdownMenuItem(
+                                            text = { Text(d.name, fontFamily = Barlow, fontSize = 14.sp) },
+                                            onClick = { onDesignationChange(d.id, d.name); showDesigDropdown = false }
+                                        )
+                                    }
                                 }
                             }
                         }
-                    }
+                    } // end when
                 } // end Designation Column
 
-                // Email
+                // Email (read-only when auto-filled)
                 Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                     Text("EMAIL (OPTIONAL)", fontFamily = BarlowCondensed, fontSize = 9.sp, letterSpacing = 0.2.em, color = TMarkMuted)
                     OutlinedTextField(
                         value = contact.email,
-                        onValueChange = onEmailChange,
+                        onValueChange = if (contact.lookedUp) ({}) else onEmailChange,
+                        readOnly = contact.lookedUp,
                         singleLine = true,
                         placeholder = { Text("contact@email.com", fontFamily = Barlow, fontSize = 13.sp, color = TMarkMuted) },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
@@ -474,7 +487,6 @@ private fun ContactCard(
             }
         }
     }
-}
 }
 
 // ── Step 5: Production House ──────────────────────────────────────────────────
